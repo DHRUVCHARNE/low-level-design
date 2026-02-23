@@ -47,3 +47,13 @@ func ReadFloat64(reader *bufio.Reader, prompt string, defaultVal float64) float6
 	}
 	return val
 }
+
+func ReadByte(reader *bufio.Reader, prompt string, defaultVal byte) byte {
+	fmt.Printf("%s [%c] : ", prompt, defaultVal)
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimSpace(input)
+	if input == ""  {
+		return defaultVal
+	}
+	return input[0]
+}
