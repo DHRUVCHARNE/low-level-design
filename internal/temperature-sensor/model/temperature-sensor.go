@@ -22,3 +22,11 @@ func (t *TemperatureSensor) GetAverage() float64 {
 	}
 	return sum/float64(len(t.readings))
 }
+
+func (t *TemperatureSensor) GetReadingCount() int {
+	return len(t.readings)
+}
+
+func (t *TemperatureSensor) GetReadings() []float64 {
+	return t.readings
+}
