@@ -9,7 +9,7 @@ import (
 
 func ReadString(reader *bufio.Reader, prompt, defaultVal string) string {
 	fmt.Printf("%s [%s] : ", prompt, defaultVal)
-	input, _:= reader.ReadString('\n')
+	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input)
 
 	if input == "" {
@@ -22,7 +22,7 @@ func ReadInt(reader *bufio.Reader, prompt string, defaultVal int) int {
 	fmt.Printf("%s [%d] : ", prompt, defaultVal)
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input)
-	if input == ""  {
+	if input == "" {
 		return defaultVal
 	}
 	val, err := strconv.Atoi(input)
@@ -37,10 +37,10 @@ func ReadFloat64(reader *bufio.Reader, prompt string, defaultVal float64) float6
 	fmt.Printf("%s [%.2f] : ", prompt, defaultVal)
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input)
-	if input == ""  {
+	if input == "" {
 		return defaultVal
 	}
-	val, err := strconv.ParseFloat(input,64)
+	val, err := strconv.ParseFloat(input, 64)
 	if err != nil {
 		fmt.Println("Invalid Number, Using Default")
 		return defaultVal
@@ -52,8 +52,25 @@ func ReadByte(reader *bufio.Reader, prompt string, defaultVal byte) byte {
 	fmt.Printf("%s [%c] : ", prompt, defaultVal)
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input)
-	if input == ""  {
+	if input == "" {
 		return defaultVal
 	}
 	return input[0]
+}
+
+func ReadArrayOfStrings(reader *bufio.Reader, prompt string, defaultVal []string) []string {
+	fmt.Printf("%s [%v] : ", prompt, defaultVal)
+	data := []string{}
+	for {
+		choice := ReadByte(reader, "To add enter '+' to end '-'", '\n')
+		switch choice {
+		case '+':
+			myStr := ReadString(reader, "Enter the string", "Tom")
+			data = append(data, myStr)
+		case '-':
+			return data
+		default:
+			return defaultVal
+		}
+	}
 }
